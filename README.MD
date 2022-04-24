@@ -6,8 +6,16 @@
 `expo init my-app`  
 `cd my-app`
 
-## React native elements:
+## Start project on physical device:
 
-A ui elements package for react native
+`expo start --localhost --android`
+
+## Packages:
+
+### React native elements : A ui elements package for react native
 
 `npm install @rneui/base @rneui/themed`
+
+### Expo-constants
+
+`npm i expo-constants`
