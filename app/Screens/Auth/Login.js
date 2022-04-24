@@ -1,10 +1,12 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Screen from "../../components/Layout/Screen";
 
-import { Input, Button } from "@rneui/themed";
+import { Input, Button, Icon } from "@rneui/themed";
 
 function Login(props) {
+  const [icon, setIcon] = useState("eye");
+  const [visible, setVisible] = useState(true);
   return (
     <Screen>
       <View style={styles.container}>
@@ -12,11 +14,22 @@ function Login(props) {
         <View style={styles.form}>
           <Input
             placeholder="Username..."
-            rightIcon={{ type: "font-awesome", name: "user" }}
+            leftIcon={{ type: "font-awesome", name: "user" }}
           />
           <Input
+            secureTextEntry={visible}
             placeholder="Password..."
-            rightIcon={{ type: "font-awesome", name: "lock" }}
+            leftIcon={{ type: "font-awesome", name: "lock" }}
+            rightIcon={
+              <TouchableOpacity
+                onPress={() => {
+                  setVisible(!visible);
+                  visible ? setIcon("eye") : setIcon("eye-slash");
+                }}
+              >
+                <Icon name={icon} type="font-awesome" size={24} color="black" />
+              </TouchableOpacity>
+            }
           />
           <Button
             title={"Login"}
