@@ -133,13 +133,6 @@ function Register({ navigation }) {
             </Link>
           </View>
         </View>
-        <Text
-          style={{
-            alignSelf: "center",
-          }}
-        >
-          Quick Park © 2022, All rights reserved.
-        </Text>
       </View>
     </Screen>
   );

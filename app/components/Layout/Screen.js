@@ -13,7 +13,6 @@ function Screen({ children }, ...otherProps) {
   );
 }
 
-console.log(StatusBar.currentHeight);
 const styles = StyleSheet.create({
   screen: {
     flex: 1,

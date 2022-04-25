@@ -7,8 +7,6 @@ import { Input, Button, Icon } from "@rneui/themed";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-import { Link } from "@react-navigation/native";
-
 const initialValues = {
   username: "",
   password: "",
@@ -30,7 +28,7 @@ function Login({ navigation }) {
         <Text style={styles.header}>Quick Park</Text>
         <View style={styles.form}>
           <Formik
-            initialValues={{ username: "", password: "" }}
+            initialValues={initialValues}
             onSubmit={(values) => {
               console.log(values);
             }}

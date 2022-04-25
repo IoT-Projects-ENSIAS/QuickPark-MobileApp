@@ -16,7 +16,7 @@
 
 `npm install @rneui/base @rneui/themed`
 
-### Expo-constants
+### Expo-constants _(no longer used)_
 
 `npm i expo-constants`
 
