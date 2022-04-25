@@ -52,9 +52,12 @@ function Register({ navigation }) {
                   <Input
                     placeholder="First name..."
                     onChangeText={handleChange("firstName")}
-                    onBlur={handleBlur("firstName")}
+                    onBlur={() => {
+                      handleBlur("firstName");
+                      console.log(touched);
+                    }}
                     errorStyle={{ color: "red" }}
-                    errorMessage={touched && errors.firstName}
+                    errorMessage={touched["firstName"] && errors.firstName}
                   />
                   <Input
                     placeholder="Last name..."

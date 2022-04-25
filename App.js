@@ -25,6 +25,6 @@ export default function App() {
     //     </Stack.Navigator>
     //   </NavigationContainer>
     // </SafeAreaProvider>
-    <Home />
+    <Register />
   );
 }
