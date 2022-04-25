@@ -19,3 +19,9 @@
 ### Expo-constants
 
 `npm i expo-constants`
+
+### React navigation
+
+### Formik & Yup: Validation
+
+###
