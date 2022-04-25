@@ -25,3 +25,9 @@
 ### Formik & Yup: Validation
 
 ###
+
+//TODO:
+// - Fix Login inputs
+// - Check Wrapper in Login
+// - fix scroll view
+// - Sliding Menu
