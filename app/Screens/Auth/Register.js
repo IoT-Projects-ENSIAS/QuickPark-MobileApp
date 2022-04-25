@@ -64,21 +64,21 @@ function Register({ navigation }) {
                     onChangeText={handleChange("lastName")}
                     onBlur={handleBlur("lastName")}
                     errorStyle={{ color: "red" }}
-                    errorMessage={touched && errors.lastName}
+                    errorMessage={touched["lastName"] && errors.lastName}
                   />
                   <Input
                     placeholder="Email..."
                     onChangeText={handleChange("email")}
                     onBlur={handleBlur("email")}
                     errorStyle={{ color: "red" }}
-                    errorMessage={touched && errors.email}
+                    errorMessage={touched["email"] && errors.email}
                   />
                   <Input
                     secureTextEntry={visible}
                     placeholder="Password..."
                     onChangeText={handleChange("password")}
                     onBlur={handleBlur("password")}
-                    errorMessage={touched && errors.password}
+                    errorMessage={touched["password"] && errors.password}
                     errorStyle={{ color: "red" }}
                     rightIcon={
                       <TouchableOpacity
@@ -101,7 +101,7 @@ function Register({ navigation }) {
                     placeholder="Confirm Password..."
                     onChangeText={handleChange("confirmPassword")}
                     onBlur={handleBlur("confirmPassword")}
-                    errorMessage={touched && errors.password}
+                    errorMessage={touched["confirmPassword"] && errors.password}
                     errorStyle={{ color: "red" }}
                     rightIcon={
                       <TouchableOpacity
