@@ -3,17 +3,18 @@ import { Card, Icon, Header, SearchBar, Slider } from "@rneui/base";
 import { ListItem, useTheme } from "@rneui/themed";
 import {
   Dimensions,
-  KeyboardAvoidingView,
   Text,
   TouchableOpacity,
   View,
   ScrollView,
   StyleSheet,
+  Platform,
 } from "react-native";
 
 import * as Device from "expo-device";
 
 import Screen from "../../components/Layout/Screen";
+import { KeyboardAvoidingWrapper } from "../../components/KeyboardAvoidingWrapper/KeyboardAvoidingWrapper";
 
 const { width, height } = Dimensions.get("window");
 const list = [
@@ -78,25 +79,21 @@ function Home(props) {
   });
   return (
     <Screen>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-        keyboardVerticalOffset={Platform.OS === "ios" ? 40 : 0}
-      >
-        <Header
-          leftComponent={
-            <TouchableOpacity
-              onPress={() => console.log("Menu open")}
-              style={{ padding: 5 }}
-            >
-              <Icon name="bars" type="font-awesome" />
-            </TouchableOpacity>
-          }
-          centerComponent={{
-            text: "Hello, John Doe",
-            style: { color: "white", padding: 5 },
-          }}
-        />
+      <Header
+        leftComponent={
+          <TouchableOpacity
+            onPress={() => console.log("Menu open")}
+            style={{ padding: 5 }}
+          >
+            <Icon name="bars" type="font-awesome" />
+          </TouchableOpacity>
+        }
+        centerComponent={{
+          text: "Hello, John Doe",
+          style: { color: "white", padding: 5 },
+        }}
+      />
+      <KeyboardAvoidingWrapper enabled={true}>
         <View style={styles.body}>
           <Card containerStyle={styles.card}>
             <Card.Title>Recently visited</Card.Title>
@@ -129,7 +126,7 @@ function Home(props) {
             </ScrollView>
           </Card>
         </View>
-      </KeyboardAvoidingView>
+      </KeyboardAvoidingWrapper>
     </Screen>
   );
 }
