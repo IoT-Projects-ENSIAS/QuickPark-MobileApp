@@ -8,7 +8,6 @@ import {
   View,
   ScrollView,
   StyleSheet,
-  Platform,
 } from "react-native";
 
 import * as Device from "expo-device";

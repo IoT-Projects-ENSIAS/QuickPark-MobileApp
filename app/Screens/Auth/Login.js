@@ -1,11 +1,13 @@
 import React, { useRef, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import Screen from "../../components/Layout/Screen";
 
 import { Input, Button, Icon } from "@rneui/themed";
 
 import { Formik } from "formik";
 import * as Yup from "yup";
+
+import Screen from "../../components/Layout/Screen";
+import { KeyboardAvoidingWrapper } from "../../components/KeyboardAvoidingWrapper/KeyboardAvoidingWrapper";
 
 const initialValues = {
   username: "",
