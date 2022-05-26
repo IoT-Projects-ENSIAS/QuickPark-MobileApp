@@ -36,7 +36,14 @@ function Login({ navigation }) {
             }}
             validationSchema={validationSchema}
           >
-            {({ handleSubmit, handleChange, errors, handleBlur, touched }) => (
+            {({
+              handleSubmit,
+              handleChange,
+              errors,
+              handleBlur,
+              touched,
+              isSubmitting,
+            }) => (
               <>
                 <Input
                   placeholder="Username..."
@@ -44,14 +51,14 @@ function Login({ navigation }) {
                   onChangeText={handleChange("username")}
                   onBlur={handleBlur("username")}
                   errorStyle={{ color: "red" }}
-                  errorMessage={touched && errors.username}
+                  errorMessage={touched["username"] && errors.username}
                 />
                 <Input
                   secureTextEntry={visible}
                   placeholder="Password..."
                   onChangeText={handleChange("password")}
                   onBlur={handleBlur("password")}
-                  errorMessage={touched && errors.password}
+                  errorMessage={touched["password"] && errors.password}
                   errorStyle={{ color: "red" }}
                   leftIcon={{ type: "font-awesome", name: "lock" }}
                   rightIcon={
@@ -79,7 +86,7 @@ function Login({ navigation }) {
                     handleSubmit();
                     setIsLoading(true);
                   }}
-                  loading={isLoading}
+                  loading={isSubmitting}
                 />
               </>
             )}

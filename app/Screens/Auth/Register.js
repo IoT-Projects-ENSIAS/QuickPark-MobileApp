@@ -11,8 +11,11 @@ import Screen from "../../components/Layout/Screen";
 import { KeyboardAvoidingWrapper } from "../../components/KeyboardAvoidingWrapper/KeyboardAvoidingWrapper";
 
 const initialValues = {
-  username: "",
+  firstName: "",
+  lastName: "",
+  email: "",
   password: "",
+  confirmPassword: "",
 };
 
 const validationSchema = Yup.object().shape({
@@ -37,8 +40,9 @@ function Register({ navigation }) {
           <Text style={styles.header}>Quick Park</Text>
           <View style={styles.form}>
             <Formik
-              initialValues={{ username: "", password: "" }}
+              initialValues={initialValues}
               validationSchema={validationSchema}
+              onSubmit={() => console.log("Submit successful!")}
             >
               {({
                 handleSubmit,
@@ -49,78 +53,82 @@ function Register({ navigation }) {
                 isSubmitting,
               }) => (
                 <>
-                  <Input
-                    placeholder="First name..."
-                    onChangeText={handleChange("firstName")}
-                    onBlur={() => handleBlur("firstName")}
-                    errorStyle={{ color: "red" }}
-                    errorMessage={touched["firstName"] && errors.firstName}
-                  />
-                  <Input
-                    placeholder="Last name..."
-                    onChangeText={handleChange("lastName")}
-                    onBlur={() => handleBlur("lastName")}
-                    errorStyle={{ color: "red" }}
-                    errorMessage={touched["lastName"] && errors.lastName}
-                  />
-                  <Input
-                    placeholder="Email..."
-                    onChangeText={handleChange("email")}
-                    onBlur={() => handleBlur("email")}
-                    errorStyle={{ color: "red" }}
-                    errorMessage={touched["email"] && errors.email}
-                  />
-                  <Input
-                    secureTextEntry={visible}
-                    placeholder="Password..."
-                    onChangeText={() => handleChange("password")}
-                    onBlur={handleBlur("password")}
-                    errorMessage={touched["password"] && errors.password}
-                    errorStyle={{ color: "red" }}
-                    rightIcon={
-                      <TouchableOpacity
-                        onPress={() => {
-                          setVisible(!visible);
-                          visible ? setIcon("eye") : setIcon("eye-slash");
-                        }}
-                      >
-                        <Icon
-                          name={icon}
-                          type="font-awesome"
-                          size={24}
-                          color="black"
-                        />
-                      </TouchableOpacity>
-                    }
-                  />
-                  <Input
-                    secureTextEntry={visible}
-                    placeholder="Confirm Password..."
-                    onChangeText={() => handleChange("confirmPassword")}
-                    onBlur={() => handleBlur("confirmPassword")}
-                    errorMessage={touched["confirmPassword"] && errors.password}
-                    errorStyle={{ color: "red" }}
-                    rightIcon={
-                      <TouchableOpacity
-                        onPress={() => {
-                          setVisible(!visible);
-                          visible ? setIcon("eye") : setIcon("eye-slash");
-                        }}
-                      >
-                        <Icon
-                          name={icon}
-                          type="font-awesome"
-                          size={24}
-                          color="black"
-                        />
-                      </TouchableOpacity>
-                    }
-                  />
+                  <>
+                    <Input
+                      placeholder="First name..."
+                      onChangeText={handleChange("firstName")}
+                      onBlur={handleBlur("firstName")}
+                      errorStyle={{ color: "red" }}
+                      errorMessage={touched["firstName"] && errors.firstName}
+                    />
+                    <Input
+                      placeholder="Last name..."
+                      onChangeText={handleChange("lastName")}
+                      onBlur={handleBlur("lastName")}
+                      errorStyle={{ color: "red" }}
+                      errorMessage={touched["lastName"] && errors.lastName}
+                    />
+                    <Input
+                      placeholder="Email..."
+                      onChangeText={handleChange("email")}
+                      onBlur={handleBlur("email")}
+                      errorStyle={{ color: "red" }}
+                      errorMessage={touched["email"] && errors.email}
+                    />
+                    <Input
+                      secureTextEntry={visible}
+                      placeholder="Password..."
+                      onChangeText={handleChange("password")}
+                      onBlur={handleBlur("password")}
+                      errorMessage={touched["password"] && errors.password}
+                      errorStyle={{ color: "red" }}
+                      rightIcon={
+                        <TouchableOpacity
+                          onPress={() => {
+                            setVisible(!visible);
+                            visible ? setIcon("eye") : setIcon("eye-slash");
+                          }}
+                        >
+                          <Icon
+                            name={icon}
+                            type="font-awesome"
+                            size={24}
+                            color="black"
+                          />
+                        </TouchableOpacity>
+                      }
+                    />
+                    <Input
+                      secureTextEntry={visible}
+                      placeholder="Confirm Password..."
+                      onChangeText={handleChange("confirmPassword")}
+                      onBlur={handleBlur("confirmPassword")}
+                      errorMessage={
+                        touched["confirmPassword"] && errors.confirmPassword
+                      }
+                      errorStyle={{ color: "red" }}
+                      rightIcon={
+                        <TouchableOpacity
+                          onPress={() => {
+                            setVisible(!visible);
+                            visible ? setIcon("eye") : setIcon("eye-slash");
+                          }}
+                        >
+                          <Icon
+                            name={icon}
+                            type="font-awesome"
+                            size={24}
+                            color="black"
+                          />
+                        </TouchableOpacity>
+                      }
+                    />
+                  </>
                   <Button
                     title={"Create Account"}
                     containerStyle={styles.buttonContainer}
                     buttonStyle={styles.button}
-                    onPress={() => handleSubmit()}
+                    onPress={handleSubmit}
                     loading={isSubmitting}
                   />
                 </>
