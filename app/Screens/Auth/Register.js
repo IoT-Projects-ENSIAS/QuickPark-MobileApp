@@ -29,7 +29,6 @@ const validationSchema = Yup.object().shape({
 function Register({ navigation }) {
   const [icon, setIcon] = useState("eye");
   const [visible, setVisible] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <Screen>
@@ -47,36 +46,34 @@ function Register({ navigation }) {
                 errors,
                 handleBlur,
                 touched,
+                isSubmitting,
               }) => (
                 <>
                   <Input
                     placeholder="First name..."
                     onChangeText={handleChange("firstName")}
-                    onBlur={() => {
-                      handleBlur("firstName");
-                      console.log(touched);
-                    }}
+                    onBlur={() => handleBlur("firstName")}
                     errorStyle={{ color: "red" }}
                     errorMessage={touched["firstName"] && errors.firstName}
                   />
                   <Input
                     placeholder="Last name..."
                     onChangeText={handleChange("lastName")}
-                    onBlur={handleBlur("lastName")}
+                    onBlur={() => handleBlur("lastName")}
                     errorStyle={{ color: "red" }}
                     errorMessage={touched["lastName"] && errors.lastName}
                   />
                   <Input
                     placeholder="Email..."
                     onChangeText={handleChange("email")}
-                    onBlur={handleBlur("email")}
+                    onBlur={() => handleBlur("email")}
                     errorStyle={{ color: "red" }}
                     errorMessage={touched["email"] && errors.email}
                   />
                   <Input
                     secureTextEntry={visible}
                     placeholder="Password..."
-                    onChangeText={handleChange("password")}
+                    onChangeText={() => handleChange("password")}
                     onBlur={handleBlur("password")}
                     errorMessage={touched["password"] && errors.password}
                     errorStyle={{ color: "red" }}
@@ -99,8 +96,8 @@ function Register({ navigation }) {
                   <Input
                     secureTextEntry={visible}
                     placeholder="Confirm Password..."
-                    onChangeText={handleChange("confirmPassword")}
-                    onBlur={handleBlur("confirmPassword")}
+                    onChangeText={() => handleChange("confirmPassword")}
+                    onBlur={() => handleBlur("confirmPassword")}
                     errorMessage={touched["confirmPassword"] && errors.password}
                     errorStyle={{ color: "red" }}
                     rightIcon={
@@ -123,11 +120,8 @@ function Register({ navigation }) {
                     title={"Create Account"}
                     containerStyle={styles.buttonContainer}
                     buttonStyle={styles.button}
-                    onPress={() => {
-                      handleSubmit();
-                      setIsLoading(true);
-                    }}
-                    loading={isLoading}
+                    onPress={() => handleSubmit()}
+                    loading={isSubmitting}
                   />
                 </>
               )}
