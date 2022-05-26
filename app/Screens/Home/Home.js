@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Card, Icon, Header, SearchBar, Slider } from "@rneui/base";
+import { Card, Icon, SearchBar, Slider } from "@rneui/base";
 import { ListItem, useTheme, Tab, TabView } from "@rneui/themed";
 import {
   Dimensions,
