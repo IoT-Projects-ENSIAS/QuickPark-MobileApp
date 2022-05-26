@@ -30,6 +30,7 @@
 
 - [x] Fix Login inputs
 - [x] Check Wrapper in Login
-- [ ] Fix scroll view
-- [ ] Sliding Menu
+- [x] Fix scroll view
+- [x] Bottom tab navigation
+- [ ] Rework Home
 - [ ] Auth
