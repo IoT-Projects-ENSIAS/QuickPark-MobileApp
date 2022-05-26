@@ -26,8 +26,10 @@
 
 ###
 
-//TODO:
-// - Fix Login inputs
-// - Check Wrapper in Login
-// - fix scroll view
-// - Sliding Menu
+## TODO:
+
+- [x] Fix Login inputs
+- [x] Check Wrapper in Login
+- [ ] Fix scroll view
+- [ ] Sliding Menu
+- [ ] Auth
