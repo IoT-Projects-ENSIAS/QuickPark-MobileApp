@@ -6,6 +6,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 
+import { Icon } from "@rneui/base";
+
 import Home from "./app/Screens/Home/Home";
 import Login from "./app/Screens/Auth/Login";
 import Register from "./app/Screens/Auth/Register";
@@ -17,8 +19,24 @@ const Tab = createBottomTabNavigator();
 function HomeNav() {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Settings" component={Settings} />
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="home" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={Settings}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="settings" color={color} size={size} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
