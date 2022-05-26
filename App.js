@@ -14,16 +14,17 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     // TODO: Uncomment once done with testing
-    <SafeAreaProvider>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{ headerShown: false }}
-          initialRouteName="Login"
-        >
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Register" component={Register} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
+    //   <SafeAreaProvider>
+    //     <NavigationContainer>
+    //       <Stack.Navigator
+    //         screenOptions={{ headerShown: false }}
+    //         initialRouteName="Login"
+    //       >
+    //         <Stack.Screen name="Login" component={Login} />
+    //         <Stack.Screen name="Register" component={Register} />
+    //       </Stack.Navigator>
+    //     </NavigationContainer>
+    //   </SafeAreaProvider>
+    <Home />
   );
 }

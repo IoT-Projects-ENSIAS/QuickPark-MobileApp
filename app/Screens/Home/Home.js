@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Card, Icon, Header, SearchBar, Slider } from "@rneui/base";
-import { ListItem, useTheme } from "@rneui/themed";
+import { ListItem, useTheme, Tab, TabView } from "@rneui/themed";
 import {
   Dimensions,
   Text,
@@ -54,6 +54,8 @@ const list = [
 const platform = Device.osName;
 
 function Home(props) {
+  const [index, setIndex] = useState();
+
   const { theme } = useTheme();
   const styles = StyleSheet.create({
     body: {
@@ -65,7 +67,7 @@ function Home(props) {
       padding: 15,
       borderRadius: 15,
       backgroundColor: theme.colors.grey5,
-      maxHeight: height * 0.6,
+
       overflow: "hidden",
     },
     searchBar: {
@@ -78,32 +80,22 @@ function Home(props) {
   });
   return (
     <Screen>
-      <Header
-        leftComponent={
-          <TouchableOpacity
-            onPress={() => console.log("Menu open")}
-            style={{ padding: 5 }}
-          >
-            <Icon name="bars" type="font-awesome" />
-          </TouchableOpacity>
-        }
-        centerComponent={{
-          text: "Hello, John Doe",
-          style: { color: "white", padding: 5 },
+      <Tab
+        value={index}
+        onChange={(e) => setIndex(e)}
+        indicatorStyle={{
+          backgroundColor: "white",
+          height: 3,
         }}
-      />
-      <KeyboardAvoidingWrapper enabled={true}>
-        <View style={styles.body}>
-          <Card containerStyle={styles.card}>
-            <Card.Title>Recently visited</Card.Title>
-            <Card.Divider />
-            <ListItem style={{ padding: 1 }}>
-              <ListItem.Content>
-                <ListItem.Title>{"Parking 1"}</ListItem.Title>
-              </ListItem.Content>
-              <ListItem.Chevron />
-            </ListItem>
-          </Card>
+        variant="primary"
+      >
+        <Tab.Item title="Parking" titleStyle={{ fontSize: 12 }} />
+        <Tab.Item title="Recent" titleStyle={{ fontSize: 12 }} />
+        <Tab.Item title="Favorite" titleStyle={{ fontSize: 12 }} />
+      </Tab>
+
+      <TabView value={index} onChange={setIndex} animationType="spring">
+        <TabView.Item style={{ width: "100%" }}>
           <Card containerStyle={styles.card}>
             <Card.Title>Choose your parking lot</Card.Title>
             <SearchBar
@@ -124,8 +116,25 @@ function Home(props) {
               ))}
             </ScrollView>
           </Card>
-        </View>
-      </KeyboardAvoidingWrapper>
+        </TabView.Item>
+
+        <TabView.Item style={{ width: "100%" }}>
+          <Card containerStyle={styles.card}>
+            <Card.Title>Recently visited</Card.Title>
+            <Card.Divider />
+            <ListItem style={{ padding: 1 }}>
+              <ListItem.Content>
+                <ListItem.Title>{"Parking 1"}</ListItem.Title>
+              </ListItem.Content>
+              <ListItem.Chevron />
+            </ListItem>
+          </Card>
+        </TabView.Item>
+
+        <TabView.Item style={{ width: "100%" }}>
+          <Text h1>Fav</Text>
+        </TabView.Item>
+      </TabView>
     </Screen>
   );
 }
