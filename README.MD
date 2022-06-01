@@ -32,5 +32,5 @@
 - [x] Check Wrapper in Login
 - [x] Fix scroll view
 - [x] Bottom tab navigation
-- [ ] Rework Home
+- [x] Rework Home
 - [ ] Auth
