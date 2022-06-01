@@ -47,11 +47,11 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{ headerShown: false }}
-          initialRouteName="Home"
+          initialRouteName="HomeScreen"
         >
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="Home" component={HomeNav} />
+          <Stack.Screen name="HomeScreen" component={HomeNav} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

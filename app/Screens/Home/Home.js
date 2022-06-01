@@ -15,7 +15,6 @@ import * as Device from "expo-device";
 import Screen from "../../components/Layout/Screen";
 import { KeyboardAvoidingWrapper } from "../../components/KeyboardAvoidingWrapper/KeyboardAvoidingWrapper";
 
-const { width, height } = Dimensions.get("window");
 const list = [
   {
     id: 1,
@@ -47,7 +46,19 @@ const list = [
   },
   {
     id: 8,
-    title: "Parking 7",
+    title: "Parking 8",
+  },
+  {
+    id: 8,
+    title: "Parking 8",
+  },
+  {
+    id: 8,
+    title: "Parking 8",
+  },
+  {
+    id: 8,
+    title: "Parking 8",
   },
 ];
 
@@ -71,11 +82,11 @@ function Home(props) {
       overflow: "hidden",
     },
     searchBar: {
-      borderRadius: 15,
-      borderStyle: "solid",
-      borderWidth: 1,
-      borderColor: theme.colors.greyOutline,
-      marginBottom: 5,
+      padding: 15,
+    },
+    innerBar: {
+      backgroundColor: theme.colors.primary,
+      color: "white",
     },
   });
   return (
@@ -96,26 +107,25 @@ function Home(props) {
 
       <TabView value={index} onChange={setIndex} animationType="spring">
         <TabView.Item style={{ width: "100%" }}>
-          <Card containerStyle={styles.card}>
-            <Card.Title>Choose your parking lot</Card.Title>
+          <ScrollView>
             <SearchBar
               placeholder="Search..."
+              placeholderTextColor={"white"}
               containerStyle={styles.searchBar}
+              inputContainerStyle={styles.innerBar}
+              searchIcon={{ name: "search", color: "white" }}
               lightTheme
               platform={platform === "Android" ? "android" : "ios"}
             />
-            <Card.Divider />
-            <ScrollView>
-              {list.map((item, i) => (
-                <ListItem key={i} style={{ padding: 1 }}>
-                  <ListItem.Content>
-                    <ListItem.Title>{item.title}</ListItem.Title>
-                  </ListItem.Content>
-                  <ListItem.Chevron />
-                </ListItem>
-              ))}
-            </ScrollView>
-          </Card>
+            {list.map((item, i) => (
+              <ListItem key={i} style={{ padding: 1 }}>
+                <ListItem.Content>
+                  <ListItem.Title>{item.title}</ListItem.Title>
+                </ListItem.Content>
+                <ListItem.Chevron />
+              </ListItem>
+            ))}
+          </ScrollView>
         </TabView.Item>
 
         <TabView.Item style={{ width: "100%" }}>
@@ -132,7 +142,16 @@ function Home(props) {
         </TabView.Item>
 
         <TabView.Item style={{ width: "100%" }}>
-          <Text h1>Fav</Text>
+          <Card containerStyle={styles.card}>
+            <Card.Title>Favorite Parking Lots</Card.Title>
+            <Card.Divider />
+            <ListItem style={{ padding: 1 }}>
+              <ListItem.Content>
+                <ListItem.Title>{"Parking 1"}</ListItem.Title>
+              </ListItem.Content>
+              <ListItem.Chevron />
+            </ListItem>
+          </Card>
         </TabView.Item>
       </TabView>
     </Screen>
