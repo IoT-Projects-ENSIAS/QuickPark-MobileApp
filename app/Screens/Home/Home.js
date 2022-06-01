@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Card, Icon, SearchBar, Slider } from "@rneui/base";
 import { ListItem, useTheme, Tab, TabView } from "@rneui/themed";
+import { useSelector } from "react-redux";
 import {
   Dimensions,
   Text,
@@ -65,6 +66,10 @@ const list = [
 const platform = Device.osName;
 
 function Home(props) {
+  const { user } = useSelector(
+    (state) => state.auth
+  );
+  console.log(user);
   const [index, setIndex] = useState();
 
   const { theme } = useTheme();
