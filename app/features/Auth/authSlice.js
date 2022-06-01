@@ -55,6 +55,20 @@ export const register = createAsyncThunk(
           state.message = action.payload;
           state.user = null;
         })
+        .addCase(login.pending, (state) => {
+            state.isLoading = true;
+          })
+          .addCase(login.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.isSuccess = true;
+            state.user = action.payload.data;
+          })
+          .addCase(login.rejected, (state, action) => {
+            state.isLoading = false;
+            state.isError = true;
+            state.message = action.payload;
+            state.user = null;
+          })
     },
   });
   

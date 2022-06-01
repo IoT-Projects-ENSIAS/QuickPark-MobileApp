@@ -1,6 +1,9 @@
 import React, { useRef, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
+import { login, reset } from "../../features/Auth/authSlice";
+import { useSelector, useDispatch } from "react-redux";
+
 import { Input, Button, Icon } from "@rneui/themed";
 
 import { Formik } from "formik";
@@ -20,6 +23,21 @@ const validationSchema = Yup.object().shape({
 });
 
 function Login({ navigation }) {
+
+  const dispatch = useDispatch();
+  const { user, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+  useEffect(()=>{
+    if(isSuccess && user){
+      navigation.navigate("HomeScreen")
+      dispatch(reset());
+    }
+    if(isError){
+      console.log(message);
+    }
+  },[isLoading,isSuccess])
+
   const [icon, setIcon] = useState("eye");
   const [visible, setVisible] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +50,7 @@ function Login({ navigation }) {
           <Formik
             initialValues={initialValues}
             onSubmit={(values) => {
-              console.log(values);
+              dispatch(login(values))
             }}
             validationSchema={validationSchema}
           >

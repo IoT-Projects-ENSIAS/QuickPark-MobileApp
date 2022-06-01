@@ -13,7 +13,21 @@ export let register = async(values)=>{
         
 }
 
+export let login = async(values)=>{
+
+    let {email,password} = values;
+    const res = await apiClient.post('/auth/login',{email,password});
+    console.log(res.data);
+    if(res.data.success){
+        return res.data;
+    }else{
+        throw new Error(res.data.error);
+    }
+        
+}
+
 const authService = {
     register,
+    login,
 };
 export default authService;
