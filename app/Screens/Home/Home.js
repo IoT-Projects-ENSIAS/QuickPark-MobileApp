@@ -64,7 +64,7 @@ const list = [
 
 const platform = Device.osName;
 
-function Home(props) {
+function Home({ navigation }) {
   const [index, setIndex] = useState();
 
   const { theme } = useTheme();
@@ -118,7 +118,11 @@ function Home(props) {
               platform={platform === "Android" ? "android" : "ios"}
             />
             {list.map((item, i) => (
-              <ListItem key={i} style={{ padding: 1 }}>
+              <ListItem
+                key={i}
+                style={{ padding: 1 }}
+                onPress={() => navigation.navigate("ParkingScreen")}
+              >
                 <ListItem.Content>
                   <ListItem.Title>{item.title}</ListItem.Title>
                 </ListItem.Content>

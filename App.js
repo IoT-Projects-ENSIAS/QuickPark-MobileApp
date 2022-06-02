@@ -10,6 +10,7 @@ import { Icon } from "@rneui/base";
 
 import Home from "./app/Screens/Home/Home";
 import Login from "./app/Screens/Auth/Login";
+import ParkingScreen from "./app/Screens/Features/ParkingScreen";
 import Register from "./app/Screens/Auth/Register";
 import Settings from "./app/Screens/Settings/Settings";
 
@@ -52,6 +53,7 @@ export default function App() {
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="HomeScreen" component={HomeNav} />
+          <Stack.Screen name="ParkingScreen" component={ParkingScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
