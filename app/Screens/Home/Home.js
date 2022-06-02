@@ -1,7 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState,useEffect, useRef } from "react";
 import { Card, Icon, SearchBar, Slider } from "@rneui/base";
+import { getAllParkings,reset } from "../../features/Parkings/parkingsSlice";
+import { useSelector, useDispatch } from "react-redux";
+
 import { ListItem, useTheme, Tab, TabView } from "@rneui/themed";
-import { useSelector } from "react-redux";
 import {
   Dimensions,
   Text,
@@ -66,10 +68,17 @@ const list = [
 const platform = Device.osName;
 
 function Home(props) {
+
+  const dispatch = useDispatch();
+
   const { user } = useSelector(
     (state) => state.auth
   );
-  console.log(user);
+
+  const { parkings, isLoading } = useSelector(
+    (state) => state.parkings
+  );
+  //console.log(user);
   const [index, setIndex] = useState();
 
   const { theme } = useTheme();
@@ -94,6 +103,19 @@ function Home(props) {
       color: "white",
     },
   });
+  
+  useEffect(()=>{
+    if(!parkings){
+      dispatch(getAllParkings());
+      dispatch(reset());
+    }
+    
+    console.log(parkings);
+  },[parkings])
+
+  if(isLoading || !parkings){
+    return <Screen><Text>Loading...</Text></Screen>
+  }
   return (
     <Screen>
       <Tab
@@ -122,10 +144,10 @@ function Home(props) {
               lightTheme
               platform={platform === "Android" ? "android" : "ios"}
             />
-            {list.map((item, i) => (
-              <ListItem key={i} style={{ padding: 1 }}>
+            {parkings.map((parking) => (
+              <ListItem key={parking.parkingId} style={{ padding: 1 }}>
                 <ListItem.Content>
-                  <ListItem.Title>{item.title}</ListItem.Title>
+                  <ListItem.Title>{parking.parkingName}</ListItem.Title>
                 </ListItem.Content>
                 <ListItem.Chevron />
               </ListItem>
