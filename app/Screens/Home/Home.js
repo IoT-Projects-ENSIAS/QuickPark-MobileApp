@@ -19,6 +19,23 @@ const list = [
   {
     id: 1,
     title: "Parking 1",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sollicitudin, erat ut pretium posuere, ipsum lacus ornare nulla, ut consectetur nunc enim et arcu. Maecenas ultrices nulla sed leo eleifend, vitae volutpat neque sagittis.",
+    rating: "Good",
+    location: "101, Avenue Essalam (c.y.m.), bloc Tsf",
+    capacity: "90",
+    available: "20",
+    reviews: [
+      {
+        stars: 4,
+        opinion:
+          "Morbi augue nisi, euismod quis vulputate viverra, aliquet quis lorem. ",
+      },
+      {
+        stars: 3,
+        opinion:
+          "Morbi augue nisi, euismod quis vulputate viverra, aliquet quis lorem. ",
+      },
+    ],
   },
   {
     id: 2,
@@ -121,7 +138,12 @@ function Home({ navigation }) {
               <ListItem
                 key={i}
                 style={{ padding: 1 }}
-                onPress={() => navigation.navigate("ParkingScreen")}
+                onPress={() => {
+                  navigation.navigate("ParkingScreen", {
+                    screen: "ParkingScreen",
+                    params: { userId: "jane" },
+                  });
+                }}
               >
                 <ListItem.Content>
                   <ListItem.Title>{item.title}</ListItem.Title>
