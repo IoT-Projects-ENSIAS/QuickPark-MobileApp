@@ -18,52 +18,6 @@ import * as Device from "expo-device";
 import Screen from "../../components/Layout/Screen";
 import { KeyboardAvoidingWrapper } from "../../components/KeyboardAvoidingWrapper/KeyboardAvoidingWrapper";
 
-const list = [
-  {
-    id: 1,
-    title: "Parking 1",
-  },
-  {
-    id: 2,
-    title: "Parking 2",
-  },
-  {
-    id: 3,
-    title: "Parking 3",
-  },
-  {
-    id: 4,
-    title: "Parking 4",
-  },
-  {
-    id: 5,
-    title: "Parking 5",
-  },
-  {
-    id: 6,
-    title: "Parking 6",
-  },
-  {
-    id: 7,
-    title: "Parking 7",
-  },
-  {
-    id: 8,
-    title: "Parking 8",
-  },
-  {
-    id: 8,
-    title: "Parking 8",
-  },
-  {
-    id: 8,
-    title: "Parking 8",
-  },
-  {
-    id: 8,
-    title: "Parking 8",
-  },
-];
 
 const platform = Device.osName;
 
@@ -71,7 +25,7 @@ function Home(props) {
 
   const dispatch = useDispatch();
 
-  const { user } = useSelector(
+  const { emailUser } = useSelector(
     (state) => state.auth
   );
 
@@ -103,7 +57,7 @@ function Home(props) {
       color: "white",
     },
   });
-  
+  console.log(emailUser);
   useEffect(()=>{
     if(!parkings){
       dispatch(getAllParkings());

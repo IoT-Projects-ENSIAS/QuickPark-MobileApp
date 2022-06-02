@@ -37,15 +37,15 @@ function Register({ navigation }) {
   const [visible, setVisible] = useState(true);
 
   const dispatch = useDispatch();
-  const { user, isError, isSuccess, message, isLoading } = useSelector(
+  const { emailUser, isError, isSuccess, message, isLoading } = useSelector(
     (state) => state.auth
   );
   useEffect(()=>{
     if(isLoading){
-      console.log(user);
-      console.log("Loading...");
+      //console.log(user);
+      //console.log("Loading...");
     }
-    if(isSuccess && user){
+    if(isSuccess && emailUser){
       navigation.navigate("HomeScreen")
       dispatch(reset());
     }

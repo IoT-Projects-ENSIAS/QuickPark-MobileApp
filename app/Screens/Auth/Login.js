@@ -25,11 +25,11 @@ const validationSchema = Yup.object().shape({
 function Login({ navigation }) {
 
   const dispatch = useDispatch();
-  const { user, isError, isSuccess, message } = useSelector(
+  const { emailUser, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
   useEffect(()=>{
-    if(isSuccess && user){
+    if(isSuccess && emailUser){
       navigation.navigate("HomeScreen")
       dispatch(reset());
     }
