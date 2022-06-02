@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef,useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { login, reset } from "../../features/Auth/authSlice";
@@ -36,7 +36,7 @@ function Login({ navigation }) {
     if(isError){
       console.log(message);
     }
-  },[isLoading,isSuccess])
+  },[isError,isSuccess])
 
   const [icon, setIcon] = useState("eye");
   const [visible, setVisible] = useState(true);

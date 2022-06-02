@@ -4,7 +4,6 @@ export let register = async(values)=>{
 
     let {firstName,lastName,email,password} = values;
     const res = await apiClient.post('/auth/register',{firstName,lastName,email,password});
-    console.log(res.data);
     if(res.data.success){
         return res.data;
     }else{
@@ -15,11 +14,10 @@ export let register = async(values)=>{
 
 export let login = async(values)=>{
 
-    let {email,password} = values;
-    const res = await apiClient.post('/auth/login',{email,password});
-    console.log(res.data);
+    let {username,password} = values;
+    const res = await apiClient.post('/auth/login',{email:username,password});
     if(res.data.success){
-        return res.data;
+        return res.data.data.email;
     }else{
         throw new Error(res.data.error);
     }
