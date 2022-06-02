@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
+import NavigationHandler from "./app/Navigation/NavigationHandler";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -24,31 +25,7 @@ import Settings from "./app/Screens/Settings/Settings";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-function HomeNav() {
-  
-  return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="home" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Settings"
-        component={Settings}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="settings" color={color} size={size} />
-          ),
-        }}
-      />
-    </Tab.Navigator>
-  );
-}
+
 
 function ChekingLogin({ children,navigation }){
   const dispatch = useDispatch();
@@ -61,14 +38,8 @@ function ChekingLogin({ children,navigation }){
       dispatch(checkLogin());
       dispatch(reset());
     }
-    if(emailUser){
-      console.log(emailUser);
-      navigation.navigate("HomeScreen")
-    }
-    if(isError){
-      console.log(message);
-    }
   },[])
+
   if(isLoading || (!emailUser && !isSuccess)){
     return <Screen><Text>Loading Page...</Text></Screen>
   }
@@ -81,14 +52,7 @@ export default function App() {
       <ChekingLogin>
         <SafeAreaProvider>
           <NavigationContainer>
-            <Stack.Navigator
-              screenOptions={{ headerShown: false }}
-              initialRouteName="Login"
-            >
-              <Stack.Screen name="Login" component={Login} />
-              <Stack.Screen name="Register" component={Register} />
-              <Stack.Screen name="HomeScreen" component={HomeNav} />
-            </Stack.Navigator>
+            <NavigationHandler/>
           </NavigationContainer>
         </SafeAreaProvider>
       </ChekingLogin>

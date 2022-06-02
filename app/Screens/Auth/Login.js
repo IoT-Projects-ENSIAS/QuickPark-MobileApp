@@ -30,7 +30,7 @@ function Login({ navigation }) {
   );
   useEffect(()=>{
     if(isSuccess && emailUser){
-      navigation.navigate("HomeScreen")
+      //navigation.navigate("HomeScreen")
       dispatch(reset());
     }
     if(isError){
