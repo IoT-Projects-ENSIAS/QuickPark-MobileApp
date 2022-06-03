@@ -1,4 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { register, reset } from "../../features/Auth/authSlice";
+import { useSelector, useDispatch } from "react-redux";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Link } from "@react-navigation/native";
 
@@ -18,6 +20,7 @@ const initialValues = {
   confirmPassword: "",
 };
 
+
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required("Please enter your first name"),
   lastName: Yup.string().required("Please enter your last name"),
@@ -33,6 +36,23 @@ function Register({ navigation }) {
   const [icon, setIcon] = useState("eye");
   const [visible, setVisible] = useState(true);
 
+  const dispatch = useDispatch();
+  const { emailUser, isError, isSuccess, message, isLoading } = useSelector(
+    (state) => state.auth
+  );
+  useEffect(()=>{
+    if(isLoading){
+      //console.log(user);
+      //console.log("Loading...");
+    }
+    if(isSuccess && emailUser){
+      navigation.navigate("HomeScreen")
+      dispatch(reset());
+    }
+    if(isError){
+      console.log(message);
+    }
+  },[isLoading,isSuccess])
   return (
     <Screen>
       <KeyboardAvoidingWrapper enabled={false}>
@@ -42,7 +62,7 @@ function Register({ navigation }) {
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
-              onSubmit={() => console.log("Submit successful!")}
+              onSubmit={(values) => dispatch(register(values))}
             >
               {({
                 handleSubmit,

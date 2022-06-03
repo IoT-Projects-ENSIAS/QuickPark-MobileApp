@@ -1,5 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState,useEffect, useRef } from "react";
 import { Card, Icon, SearchBar, Slider } from "@rneui/base";
+import { getAllParkings,reset } from "../../features/Parkings/parkingsSlice";
+import { useSelector, useDispatch } from "react-redux";
+
 import { ListItem, useTheme, Tab, TabView } from "@rneui/themed";
 import {
   Dimensions,
@@ -15,6 +18,7 @@ import * as Device from "expo-device";
 import Screen from "../../components/Layout/Screen";
 import { KeyboardAvoidingWrapper } from "../../components/KeyboardAvoidingWrapper/KeyboardAvoidingWrapper";
 
+<<<<<<< HEAD
 const list = [
   {
     id: 1,
@@ -82,6 +86,23 @@ const list = [
 const platform = Device.osName;
 
 function Home({ navigation }) {
+=======
+
+const platform = Device.osName;
+
+function Home(props) {
+
+  const dispatch = useDispatch();
+
+  const { emailUser } = useSelector(
+    (state) => state.auth
+  );
+
+  const { parkings, isLoading } = useSelector(
+    (state) => state.parkings
+  );
+  //console.log(user);
+>>>>>>> auth-backend
   const [index, setIndex] = useState();
 
   const { theme } = useTheme();
@@ -106,6 +127,19 @@ function Home({ navigation }) {
       color: "white",
     },
   });
+  console.log(emailUser);
+  useEffect(()=>{
+    if(!parkings){
+      dispatch(getAllParkings());
+      dispatch(reset());
+    }
+    
+    console.log(parkings);
+  },[parkings])
+
+  if(isLoading || !parkings){
+    return <Screen><Text>Loading...</Text></Screen>
+  }
   return (
     <Screen>
       <Tab
@@ -134,6 +168,7 @@ function Home({ navigation }) {
               lightTheme
               platform={platform === "Android" ? "android" : "ios"}
             />
+<<<<<<< HEAD
             {list.map((item, i) => (
               <ListItem
                 key={i}
@@ -142,8 +177,12 @@ function Home({ navigation }) {
                   navigation.navigate("ParkingScreen", { userID: "hh" });
                 }}
               >
+=======
+            {parkings.map((parking) => (
+              <ListItem key={parking.parkingId} style={{ padding: 1 }}>
+>>>>>>> auth-backend
                 <ListItem.Content>
-                  <ListItem.Title>{item.title}</ListItem.Title>
+                  <ListItem.Title>{parking.parkingName}</ListItem.Title>
                 </ListItem.Content>
                 <ListItem.Chevron />
               </ListItem>
