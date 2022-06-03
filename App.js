@@ -33,7 +33,6 @@ function ChekingLogin({ children, navigation }) {
   );
   useEffect(() => {
     if (!emailUser) {
-      console.log("hII" + emailUser);
       dispatch(checkLogin());
       dispatch(reset());
     }
