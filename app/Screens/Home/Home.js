@@ -139,10 +139,7 @@ function Home({ navigation }) {
                 key={i}
                 style={{ padding: 1 }}
                 onPress={() => {
-                  navigation.navigate("ParkingScreen", {
-                    screen: "ParkingScreen",
-                    params: { userId: "jane" },
-                  });
+                  navigation.navigate("ParkingScreen", { userID: "hh" });
                 }}
               >
                 <ListItem.Content>
