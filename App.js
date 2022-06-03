@@ -26,53 +26,39 @@ import Settings from "./app/Screens/Settings/Settings";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-
-
-function ChekingLogin({ children,navigation }){
+function ChekingLogin({ children, navigation }) {
   const dispatch = useDispatch();
   const { emailUser, isError, isSuccess, message, isLoading } = useSelector(
     (state) => state.auth
   );
-  useEffect(()=>{
-    if(!emailUser){
-      console.log("hII"+emailUser);
+  useEffect(() => {
+    if (!emailUser) {
+      console.log("hII" + emailUser);
       dispatch(checkLogin());
       dispatch(reset());
     }
-  },[])
+  }, []);
 
-  if(isLoading || (!emailUser && !isSuccess)){
-    return <Screen><Text>Loading Page...</Text></Screen>
+  if (isLoading || (!emailUser && !isSuccess)) {
+    return (
+      <Screen>
+        <Text>Loading Page...</Text>
+      </Screen>
+    );
   }
   return <>{children}</>;
 }
 
 export default function App() {
   return (
-<<<<<<< HEAD
-    <SafeAreaProvider>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{ headerShown: false }}
-          initialRouteName="HomeScreen"
-        >
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="HomeScreen" component={HomeNav} />
-          <Stack.Screen name="ParkingScreen" component={ParkingScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
-=======
     <Provider store={store}>
       <ChekingLogin>
         <SafeAreaProvider>
           <NavigationContainer>
-            <NavigationHandler/>
+            <NavigationHandler />
           </NavigationContainer>
         </SafeAreaProvider>
       </ChekingLogin>
     </Provider>
->>>>>>> auth-backend
   );
 }

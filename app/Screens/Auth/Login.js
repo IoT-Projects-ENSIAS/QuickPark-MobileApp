@@ -1,4 +1,4 @@
-import React, { useRef,useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { login, reset } from "../../features/Auth/authSlice";
@@ -10,7 +10,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 
 import Screen from "../../components/Layout/Screen";
-import { KeyboardAvoidingWrapper } from "../../components/KeyboardAvoidingWrapper/KeyboardAvoidingWrapper";
+import { useRoute } from "@react-navigation/native";
 
 const initialValues = {
   username: "",
@@ -23,34 +23,34 @@ const validationSchema = Yup.object().shape({
 });
 
 function Login({ navigation }) {
-
   const dispatch = useDispatch();
   const { emailUser, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
-  useEffect(()=>{
-    if(isSuccess && emailUser){
+  useEffect(() => {
+    if (isSuccess && emailUser) {
       //navigation.navigate("HomeScreen")
       dispatch(reset());
     }
-    if(isError){
+    if (isError) {
       console.log(message);
     }
-  },[isError,isSuccess])
+  }, [isError, isSuccess]);
 
   const [icon, setIcon] = useState("eye");
   const [visible, setVisible] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-
+  const route = useRoute();
+  console.log(route.name);
   return (
-    <Screen>
+    <Screen route={route.name}>
       <View style={styles.container}>
         <Text style={styles.header}>Quick Park</Text>
         <View style={styles.form}>
           <Formik
             initialValues={initialValues}
             onSubmit={(values) => {
-              dispatch(login(values))
+              dispatch(login(values));
             }}
             validationSchema={validationSchema}
           >
