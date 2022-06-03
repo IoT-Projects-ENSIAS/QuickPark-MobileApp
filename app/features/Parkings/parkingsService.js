@@ -11,8 +11,20 @@ export let getAllParkings = async()=>{
         
 }
 
+export let getRecentlyVisitedParkings = async()=>{
+
+    const res = await apiClient.get('/parkings/userid');
+    if(res.data.success){
+        return res.data;
+    }else{
+        throw new Error(res.data.error);
+    }
+        
+}
+
 
 const parkingsService = {
     getAllParkings,
+    getRecentlyVisitedParkings
 };
 export default parkingsService;
