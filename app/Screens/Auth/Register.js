@@ -37,22 +37,18 @@ function Register({ navigation }) {
   const [visible, setVisible] = useState(true);
 
   const dispatch = useDispatch();
-  const { emailUser, isError, isSuccess, message, isLoading } = useSelector(
+  const { user, isError, isSuccess, message, isLoading } = useSelector(
     (state) => state.auth
   );
   useEffect(()=>{
-    if(isLoading){
-      //console.log(user);
-      //console.log("Loading...");
-    }
-    if(isSuccess && emailUser){
+    if(isSuccess && user){
       navigation.navigate("HomeScreen")
       dispatch(reset());
     }
     if(isError){
       console.log(message);
     }
-  },[isLoading,isSuccess])
+  },[isSuccess,isError])
   return (
     <Screen>
       <KeyboardAvoidingWrapper enabled={false}>

@@ -1,6 +1,6 @@
-import React, { useState,useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Card, Icon, SearchBar, Slider } from "@rneui/base";
-import { getAllParkings,reset } from "../../features/Parkings/parkingsSlice";
+import { getAllParkings,getRecentlyVisitedParkings, reset } from "../../features/Parkings/parkingsSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 import { ListItem, useTheme, Tab, TabView } from "@rneui/themed";
@@ -18,21 +18,14 @@ import * as Device from "expo-device";
 import Screen from "../../components/Layout/Screen";
 import { KeyboardAvoidingWrapper } from "../../components/KeyboardAvoidingWrapper/KeyboardAvoidingWrapper";
 
-
 const platform = Device.osName;
 
 function Home(props) {
-
   const dispatch = useDispatch();
 
-  const { emailUser } = useSelector(
-    (state) => state.auth
-  );
+  const { user } = useSelector((state) => state.auth);
 
-  const { parkings, isLoading } = useSelector(
-    (state) => state.parkings
-  );
-  //console.log(user);
+  const { parkings, isLoading,recentlyVisitedParkings } = useSelector((state) => state.parkings);
   const [index, setIndex] = useState();
 
   const { theme } = useTheme();
@@ -57,19 +50,27 @@ function Home(props) {
       color: "white",
     },
   });
-  console.log(emailUser);
-  useEffect(()=>{
-    if(!parkings){
+  useEffect(() => {
+    if (!parkings) {
       dispatch(getAllParkings());
       dispatch(reset());
     }
-    
-    console.log(parkings);
-  },[parkings])
 
-  if(isLoading || !parkings){
-    return <Screen><Text>Loading...</Text></Screen>
+    if (!recentlyVisitedParkings) {
+      dispatch(getRecentlyVisitedParkings(user.email));
+      dispatch(reset());
+    }
+    
+  }, [parkings,recentlyVisitedParkings]);
+
+  if (isLoading || !parkings || !recentlyVisitedParkings) {
+    return (
+      <Screen>
+        <Text>Loading...</Text>
+      </Screen>
+    );
   }
+
   return (
     <Screen>
       <Tab
@@ -113,12 +114,14 @@ function Home(props) {
           <Card containerStyle={styles.card}>
             <Card.Title>Recently visited</Card.Title>
             <Card.Divider />
-            <ListItem style={{ padding: 1 }}>
-              <ListItem.Content>
-                <ListItem.Title>{"Parking 1"}</ListItem.Title>
-              </ListItem.Content>
-              <ListItem.Chevron />
-            </ListItem>
+            {recentlyVisitedParkings.map((parking) => (
+              <ListItem key={parking.parkingId} style={{ padding: 1 }}>
+                <ListItem.Content>
+                  <ListItem.Title>{parking.parkingName}</ListItem.Title>
+                </ListItem.Content>
+                <ListItem.Chevron />
+              </ListItem>
+            ))}
           </Card>
         </TabView.Item>
 

@@ -11,9 +11,9 @@ export let getAllParkings = async()=>{
         
 }
 
-export let getRecentlyVisitedParkings = async()=>{
+export let getRecentlyVisitedParkings = async(userId)=>{
 
-    const res = await apiClient.get('/parkings/userid');
+    const res = await apiClient.get(`/parkings/userid/${userId}`);
     if(res.data.success){
         return res.data;
     }else{

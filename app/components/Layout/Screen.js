@@ -6,15 +6,17 @@ import { Header } from "@rneui/base";
 
 const { width, height } = Dimensions.get("window");
 
-function Screen({ children }, ...otherProps) {
+function Screen({ children, route }, ...otherProps) {
   return (
     <SafeAreaView style={styles.screen} {...otherProps}>
-      <Header
-        centerComponent={{
-          text: "Hello, John Doe",
-          style: { color: "white", padding: 5 },
-        }}
-      />
+      {route === "Home" && (
+        <Header
+          centerComponent={{
+            text: "Hello, John Doe",
+            style: { color: "white", padding: 5 },
+          }}
+        />
+      )}
       <StatusBar />
       {children}
     </SafeAreaView>

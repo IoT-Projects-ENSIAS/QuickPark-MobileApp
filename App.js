@@ -19,29 +19,31 @@ import { Icon } from "@rneui/base";
 
 import Home from "./app/Screens/Home/Home";
 import Login from "./app/Screens/Auth/Login";
+import ParkingScreen from "./app/Screens/Features/ParkingScreen";
 import Register from "./app/Screens/Auth/Register";
 import Settings from "./app/Screens/Settings/Settings";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-
-
-function ChekingLogin({ children,navigation }){
+function ChekingLogin({ children, navigation }) {
   const dispatch = useDispatch();
-  const { emailUser, isError, isSuccess, message, isLoading } = useSelector(
+  const { user, isError, isSuccess, message, isLoading } = useSelector(
     (state) => state.auth
   );
-  useEffect(()=>{
-    if(!emailUser){
-      console.log("hII"+emailUser);
+  useEffect(() => {
+    if (!user) {
       dispatch(checkLogin());
       dispatch(reset());
     }
-  },[])
+  }, []);
 
-  if(isLoading || (!emailUser && !isSuccess)){
-    return <Screen><Text>Loading Page...</Text></Screen>
+  if (isLoading || (!user && !isSuccess)) {
+    return (
+      <Screen>
+        <Text>Loading Page...</Text>
+      </Screen>
+    );
   }
   return <>{children}</>;
 }
@@ -52,7 +54,7 @@ export default function App() {
       <ChekingLogin>
         <SafeAreaProvider>
           <NavigationContainer>
-            <NavigationHandler/>
+            <NavigationHandler />
           </NavigationContainer>
         </SafeAreaProvider>
       </ChekingLogin>
