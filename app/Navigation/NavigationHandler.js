@@ -41,7 +41,7 @@ function HomeNav() {
   }
 
 function NavigationHandler() {
-    const { emailUser } = useSelector(
+    const { user } = useSelector(
         (state) => state.auth
       );
   return (
@@ -49,7 +49,7 @@ function NavigationHandler() {
               screenOptions={{ headerShown: false }}
               initialRouteName="Login"
             >
-              {emailUser?(<Stack.Screen name="HomeScreen" component={HomeNav} />):(
+              {user?(<Stack.Screen name="HomeScreen" component={HomeNav} />):(
                 <>
                     <Stack.Screen name="HomeScreen" component={HomeNav} />
                     <Stack.Screen name="Login" component={Login} />

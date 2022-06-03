@@ -28,17 +28,17 @@ const Tab = createBottomTabNavigator();
 
 function ChekingLogin({ children, navigation }) {
   const dispatch = useDispatch();
-  const { emailUser, isError, isSuccess, message, isLoading } = useSelector(
+  const { user, isError, isSuccess, message, isLoading } = useSelector(
     (state) => state.auth
   );
   useEffect(() => {
-    if (!emailUser) {
+    if (!user) {
       dispatch(checkLogin());
       dispatch(reset());
     }
   }, []);
 
-  if (isLoading || (!emailUser && !isSuccess)) {
+  if (isLoading || (!user && !isSuccess)) {
     return (
       <Screen>
         <Text>Loading Page...</Text>

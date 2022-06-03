@@ -23,7 +23,7 @@ const platform = Device.osName;
 function Home(props) {
   const dispatch = useDispatch();
 
-  const { emailUser } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   const { parkings, isLoading,recentlyVisitedParkings } = useSelector((state) => state.parkings);
   const [index, setIndex] = useState();
@@ -57,7 +57,7 @@ function Home(props) {
     }
 
     if (!recentlyVisitedParkings) {
-      dispatch(getRecentlyVisitedParkings(emailUser));
+      dispatch(getRecentlyVisitedParkings(user.email));
       dispatch(reset());
     }
     
