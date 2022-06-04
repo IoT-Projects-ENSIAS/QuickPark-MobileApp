@@ -41,7 +41,6 @@ function Login({ navigation }) {
   const [visible, setVisible] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const route = useRoute();
-  console.log(route.name);
   return (
     <Screen route={route.name}>
       <View style={styles.container}>
