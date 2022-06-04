@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Card, Icon, SearchBar, Slider } from "@rneui/base";
-import { getAllParkings,getRecentlyVisitedParkings, reset } from "../../features/Parkings/parkingsSlice";
+import { getAllParkings,getRecentlyVisitedParkings,getFavoriteParkings, reset } from "../../features/Parkings/parkingsSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 import { ListItem, useTheme, Tab, TabView } from "@rneui/themed";
@@ -25,7 +25,7 @@ function Home(props) {
 
   const { user } = useSelector((state) => state.auth);
 
-  const { parkings, isLoading,recentlyVisitedParkings } = useSelector((state) => state.parkings);
+  const { parkings, isLoading,recentlyVisitedParkings,favoriteParkings } = useSelector((state) => state.parkings);
   const [index, setIndex] = useState();
 
   const { theme } = useTheme();
@@ -60,10 +60,15 @@ function Home(props) {
       dispatch(getRecentlyVisitedParkings(user.email));
       dispatch(reset());
     }
-    
-  }, [parkings,recentlyVisitedParkings]);
 
-  if (isLoading || !parkings || !recentlyVisitedParkings) {
+    if (!favoriteParkings) {
+      dispatch(getFavoriteParkings(user.email));
+      dispatch(reset());
+    }
+    
+  }, [parkings,recentlyVisitedParkings,favoriteParkings]);
+
+  if (isLoading || !parkings || !recentlyVisitedParkings || !favoriteParkings) {
     return (
       <Screen>
         <Text>Loading...</Text>
@@ -114,8 +119,8 @@ function Home(props) {
           <Card containerStyle={styles.card}>
             <Card.Title>Recently visited</Card.Title>
             <Card.Divider />
-            {recentlyVisitedParkings.map((parking) => (
-              <ListItem key={parking.parkingId} style={{ padding: 1 }}>
+            {recentlyVisitedParkings.map((parking,i) => (
+              <ListItem key={i} style={{ padding: 1 }}>
                 <ListItem.Content>
                   <ListItem.Title>{parking.parkingName}</ListItem.Title>
                 </ListItem.Content>
@@ -127,14 +132,16 @@ function Home(props) {
 
         <TabView.Item style={{ width: "100%" }}>
           <Card containerStyle={styles.card}>
-            <Card.Title>Favorite Parking Lots</Card.Title>
+            <Card.Title>Favorite Parking </Card.Title>
             <Card.Divider />
-            <ListItem style={{ padding: 1 }}>
-              <ListItem.Content>
-                <ListItem.Title>{"Parking 1"}</ListItem.Title>
-              </ListItem.Content>
-              <ListItem.Chevron />
-            </ListItem>
+            {favoriteParkings.map((parking,i) => (
+              <ListItem key={i} style={{ padding: 1 }}>
+                <ListItem.Content>
+                  <ListItem.Title>{parking.parkingName}</ListItem.Title>
+                </ListItem.Content>
+                <ListItem.Chevron />
+              </ListItem>
+            ))}
           </Card>
         </TabView.Item>
       </TabView>
