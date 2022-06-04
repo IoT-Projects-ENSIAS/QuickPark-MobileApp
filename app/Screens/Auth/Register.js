@@ -20,7 +20,6 @@ const initialValues = {
   confirmPassword: "",
 };
 
-
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required("Please enter your first name"),
   lastName: Yup.string().required("Please enter your last name"),
@@ -32,7 +31,7 @@ const validationSchema = Yup.object().shape({
   ),
 });
 
-function Register({ navigation }) {
+function Register({ navigation, route }) {
   const [icon, setIcon] = useState("eye");
   const [visible, setVisible] = useState(true);
 
@@ -40,17 +39,17 @@ function Register({ navigation }) {
   const { user, isError, isSuccess, message, isLoading } = useSelector(
     (state) => state.auth
   );
-  useEffect(()=>{
-    if(isSuccess && user){
-      navigation.navigate("HomeScreen")
+  useEffect(() => {
+    if (isSuccess && user) {
+      navigation.navigate("HomeScreen");
       dispatch(reset());
     }
-    if(isError){
+    if (isError) {
       console.log(message);
     }
-  },[isSuccess,isError])
+  }, [isSuccess, isError]);
   return (
-    <Screen>
+    <Screen route={route.name}>
       <KeyboardAvoidingWrapper enabled={false}>
         <View style={styles.container}>
           <Text style={styles.header}>Quick Park</Text>

@@ -3,11 +3,11 @@ import { View, Text } from "react-native";
 import Screen from "../../components/Layout/Screen";
 
 function ParkingScreen({ navigation, route }) {
-  const { userID } = route.params;
+  const { parkingDetails } = route.params;
   return (
-    <Screen>
+    <Screen route={route.name} screenName={"Parking 1"}>
       <View>
-        <Text>{JSON.stringify(userID)}</Text>
+        <Text>{parkingDetails.id}</Text>
       </View>
     </Screen>
   );

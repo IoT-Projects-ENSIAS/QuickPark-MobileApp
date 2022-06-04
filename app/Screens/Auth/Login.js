@@ -29,7 +29,7 @@ function Login({ navigation }) {
   );
   useEffect(() => {
     if (isSuccess && user) {
-      navigation.navigate("HomeScreen")
+      navigation.navigate("HomeScreen");
       dispatch(reset());
     }
     if (isError) {
@@ -38,8 +38,9 @@ function Login({ navigation }) {
   }, [isError, isSuccess]);
   const [icon, setIcon] = useState("eye");
   const [visible, setVisible] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
+
   const route = useRoute();
+
   return (
     <Screen route={route.name}>
       <View style={styles.container}>
@@ -98,10 +99,7 @@ function Login({ navigation }) {
                   title={"Login"}
                   containerStyle={styles.buttonContainer}
                   buttonStyle={styles.button}
-                  onPress={() => {
-                    handleSubmit();
-                    setIsLoading(true);
-                  }}
+                  onPress={handleSubmit}
                   loading={isSubmitting}
                 />
               </>

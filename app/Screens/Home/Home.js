@@ -1,33 +1,31 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Card, Icon, SearchBar, Slider } from "@rneui/base";
-import { getAllParkings,getRecentlyVisitedParkings, reset } from "../../features/Parkings/parkingsSlice";
+import {
+  getAllParkings,
+  getRecentlyVisitedParkings,
+  reset,
+} from "../../features/Parkings/parkingsSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 import { ListItem, useTheme, Tab, TabView } from "@rneui/themed";
-import {
-  Dimensions,
-  Text,
-  TouchableOpacity,
-  View,
-  ScrollView,
-  StyleSheet,
-} from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 
 import * as Device from "expo-device";
 
 import Screen from "../../components/Layout/Screen";
 import { KeyboardAvoidingWrapper } from "../../components/KeyboardAvoidingWrapper/KeyboardAvoidingWrapper";
 
+import { NavigationContainer } from "@react-navigation/native";
+
+//TODO: delete once backend is setup
+//for testing
+import parkings from "./Data.Home";
+import user from "./Data.User";
+
 const platform = Device.osName;
 
-function Home(props) {
-  const dispatch = useDispatch();
-
-  const { user } = useSelector((state) => state.auth);
-
-  const { parkings, isLoading,recentlyVisitedParkings } = useSelector((state) => state.parkings);
-  const [index, setIndex] = useState();
-
+function Home({ navigation, route }) {
+  const [index, setIndex] = useState(0);
   const { theme } = useTheme();
   const styles = StyleSheet.create({
     body: {
@@ -50,29 +48,9 @@ function Home(props) {
       color: "white",
     },
   });
-  useEffect(() => {
-    if (!parkings) {
-      dispatch(getAllParkings());
-      dispatch(reset());
-    }
-
-    if (!recentlyVisitedParkings) {
-      dispatch(getRecentlyVisitedParkings(user.email));
-      dispatch(reset());
-    }
-    
-  }, [parkings,recentlyVisitedParkings]);
-
-  if (isLoading || !parkings || !recentlyVisitedParkings) {
-    return (
-      <Screen>
-        <Text>Loading...</Text>
-      </Screen>
-    );
-  }
 
   return (
-    <Screen>
+    <Screen route={route.name} screenName={`Hello, ${user.firstName}`}>
       <Tab
         value={index}
         onChange={(e) => setIndex(e)}
@@ -100,9 +78,18 @@ function Home(props) {
               platform={platform === "Android" ? "android" : "ios"}
             />
             {parkings.map((parking) => (
-              <ListItem key={parking.parkingId} style={{ padding: 1 }}>
+              <ListItem
+                key={parking.id}
+                style={{ padding: 1 }}
+                onPress={() =>
+                  navigation.navigate("ParkingScreen", {
+                    parkingDetails: parking,
+                    test: 2,
+                  })
+                }
+              >
                 <ListItem.Content>
-                  <ListItem.Title>{parking.parkingName}</ListItem.Title>
+                  <ListItem.Title>{parking.name}</ListItem.Title>
                 </ListItem.Content>
                 <ListItem.Chevron />
               </ListItem>
@@ -114,14 +101,6 @@ function Home(props) {
           <Card containerStyle={styles.card}>
             <Card.Title>Recently visited</Card.Title>
             <Card.Divider />
-            {recentlyVisitedParkings.map((parking) => (
-              <ListItem key={parking.parkingId} style={{ padding: 1 }}>
-                <ListItem.Content>
-                  <ListItem.Title>{parking.parkingName}</ListItem.Title>
-                </ListItem.Content>
-                <ListItem.Chevron />
-              </ListItem>
-            ))}
           </Card>
         </TabView.Item>
 
