@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import parkingsService from "./parkingsService";
 
 const initialState = {
+    favoriteParkings: null,
     recentlyVisitedParkings: null,
     parkings: null,
     isError: false,
@@ -46,7 +47,22 @@ export const getRecentlyVisitedParkings = createAsyncThunk(
   }
 );
 
-
+export const getFavoriteParkings = createAsyncThunk(
+  "getfavoriteparkings",
+  async (userId,thunkAPI) => {
+    try {
+      return await parkingsService.getFavoriteParkings(userId);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
   export const parkingsSlice = createSlice({
     name: "parkings",
@@ -65,6 +81,7 @@ export const getRecentlyVisitedParkings = createAsyncThunk(
         state.message = "";
         state.parkings = null;
         state.recentlyVisitedParkings = null;
+        state.favoriteParkings = null;
       }
     },
     extraReducers: (builder) => {
@@ -96,6 +113,20 @@ export const getRecentlyVisitedParkings = createAsyncThunk(
           state.isError = true;
           state.message = action.payload;
           state.recentlyVisitedParkings = null;
+        })
+        .addCase(getFavoriteParkings.pending, (state) => {
+          state.isLoading = true;
+        })
+        .addCase(getFavoriteParkings.fulfilled, (state, action) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.favoriteParkings = action.payload.data;
+        })
+        .addCase(getFavoriteParkings.rejected, (state, action) => {
+          state.isLoading = false;
+          state.isError = true;
+          state.message = action.payload;
+          state.favoriteParkings = null;
         })
     },
   });
