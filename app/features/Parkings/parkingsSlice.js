@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import parkingsService from "./parkingsService";
 
 const initialState = {
+    recentlyVisitedParkings: null,
     parkings: null,
     isError: false,
     isSuccess: false,
@@ -9,7 +10,7 @@ const initialState = {
     message: "",
 };
 
-// Register user
+// get All Parkings
 export const getAllParkings = createAsyncThunk(
     "getallparkings",
     async (thunkAPI) => {
@@ -26,6 +27,25 @@ export const getAllParkings = createAsyncThunk(
       }
     }
   );
+
+// get All Parkings
+export const getRecentlyVisitedParkings = createAsyncThunk(
+  "getrecentlyvisitedparkings",
+  async (userId,thunkAPI) => {
+    try {
+      return await parkingsService.getRecentlyVisitedParkings(userId);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 
 
   export const parkingsSlice = createSlice({
@@ -44,6 +64,7 @@ export const getAllParkings = createAsyncThunk(
         state.isError = false;
         state.message = "";
         state.parkings = null;
+        state.recentlyVisitedParkings = null;
       }
     },
     extraReducers: (builder) => {
@@ -61,6 +82,20 @@ export const getAllParkings = createAsyncThunk(
           state.isError = true;
           state.message = action.payload;
           state.parkings = null;
+        })
+        .addCase(getRecentlyVisitedParkings.pending, (state) => {
+          state.isLoading = true;
+        })
+        .addCase(getRecentlyVisitedParkings.fulfilled, (state, action) => {
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.recentlyVisitedParkings = action.payload.data.parkings;
+        })
+        .addCase(getRecentlyVisitedParkings.rejected, (state, action) => {
+          state.isLoading = false;
+          state.isError = true;
+          state.message = action.payload;
+          state.recentlyVisitedParkings = null;
         })
     },
   });

@@ -7,17 +7,17 @@ import { useState,useEffect } from "react";
 
 
 function Settings(props) {
-  const { emailUser, isError, isSuccess, message } = useSelector(
+  const { user, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
   const dispatch = useDispatch();
   useEffect(()=>{
-    if(isSuccess && !emailUser){
+    if(isSuccess && !user){
       navigation.navigate("Login")
       dispatch(reset());
     }
     
-  },[isSuccess,emailUser])
+  },[isSuccess,user])
   return (
     <Screen>
       <View style={{ backgroundColor: "red" }}>

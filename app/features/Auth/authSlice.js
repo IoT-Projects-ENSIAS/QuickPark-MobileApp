@@ -7,7 +7,6 @@ const initialState = {
     isSuccess: false,
     isLoading: false,
     message: "",
-    emailUser:"",
 };
 
 // Register user
@@ -99,13 +98,13 @@ export const register = createAsyncThunk(
         .addCase(register.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
-          state.emailUser = action.payload;
+          state.user = action.payload;
         })
         .addCase(register.rejected, (state, action) => {
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
-          state.emailUser = null;
+          state.user = null;
         })
         .addCase(login.pending, (state) => {
             state.isLoading = true;
@@ -113,13 +112,13 @@ export const register = createAsyncThunk(
           .addCase(login.fulfilled, (state, action) => {
             state.isLoading = false;
             state.isSuccess = true;
-            state.emailUser = action.payload;
+            state.user = action.payload;
           })
           .addCase(login.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
             state.message = action.payload;
-            state.emailUser = null;
+            state.user = null;
           })
           .addCase(checkLogin.pending, (state) => {
             state.isLoading = true;
@@ -127,13 +126,13 @@ export const register = createAsyncThunk(
           .addCase(checkLogin.fulfilled, (state, action) => {
             state.isLoading = false;
             state.isSuccess = true;
-            state.emailUser = action.payload;
+            state.user = action.payload;
           })
           .addCase(checkLogin.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
             state.message = action.payload;
-            state.emailUser = null;
+            state.user = null;
           })
           .addCase(logout.pending, (state) => {
             state.isLoading = true;
@@ -141,7 +140,7 @@ export const register = createAsyncThunk(
           .addCase(logout.fulfilled, (state, action) => {
             state.isLoading = false;
             state.isSuccess = true;
-            state.emailUser = null;
+            state.user = null;
           })
     },
   });
