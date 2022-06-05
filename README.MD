@@ -24,7 +24,9 @@
 
 ### Formik & Yup: Validation
 
-###
+### React native numeric input
+
+`npm i react-native-numeric-input`
 
 ## TODO:
 

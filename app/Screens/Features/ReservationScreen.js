@@ -37,7 +37,11 @@ function ReservationScreen({ route, navigation }) {
             title={"Next"}
             icon={{ type: "font-awesome", name: "angle-right", color: "white" }}
             iconPosition={"right"}
-            onPress={() => navigation.navigate("FinalizationScreen")}
+            onPress={() =>
+              navigation.navigate("FinalizationScreen", {
+                parkingDetails: parkingDetails,
+              })
+            }
           ></Button>
           <Button
             containerStyle={{ marginTop: 1 }}

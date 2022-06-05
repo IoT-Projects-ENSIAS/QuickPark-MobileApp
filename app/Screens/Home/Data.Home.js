@@ -8,7 +8,7 @@ export default [
     location: "101, Avenue Essalam (c.y.m.), bloc Tsf",
     capacity: 50,
     available: 20,
-    price: "50DH",
+    price: 50,
     reviews: [
       {
         stars: 4,
@@ -32,7 +32,7 @@ export default [
     location: "14, avenue Al Oumam AlMouttahida -ex Nations Unies, Agdal",
     capacity: 90,
     available: 55,
-    price: "75DH",
+    price: 75,
     reviews: [
       {
         stars: 4,
@@ -55,7 +55,7 @@ export default [
     location: "24, rue d' Essaouira",
     capacity: 90,
     available: 0,
-    price: "68DH",
+    price: 68,
     reviews: [
       {
         stars: 4,

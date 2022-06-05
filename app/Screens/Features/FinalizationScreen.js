@@ -8,18 +8,30 @@ import {
   StyleSheet,
 } from "react-native";
 import { Card, Button } from "@rneui/base";
-import { NavigationContainer } from "@react-navigation/native";
+import NumericInput from "react-native-numeric-input";
 
 function FinalizationScreen({ route, navigation }) {
+  const [totalPrice, setTotalPrice] = useState(0);
   const { parkingDetails } = route.params;
-
+  const total = (e) => {
+    return e * parkingDetails.price;
+  };
   return (
-    <Screen route={route.name} screenName={"Reserve your spot"}>
+    <Screen route={route.name} screenName={"Hours of parking"}>
       <ScrollView>
         <Card>
-          <Card.Title>Choose your spot</Card.Title>
+          <Card.Title>How many hours are you staying?</Card.Title>
           <Card.Divider />
-          <View style={styles.grid}>{parkingGrid}</View>
+          <View style={styles.hoursGroup}>
+            <Text>Hours:</Text>
+            <NumericInput
+              minValue={0}
+              onChange={(e) => setTotalPrice(total(e))}
+              rounded={true}
+            />
+          </View>
+          <Card.Divider />
+          <Text>Total: {totalPrice} MAD</Text>
           <Button
             title={"Proceed to payment"}
             icon={{ type: "font-awesome", name: "angle-right", color: "white" }}
@@ -39,20 +51,13 @@ function FinalizationScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  grid: {
+  hoursGroup: {
     flex: 1,
     flexDirection: "row",
-    flexWrap: "wrap",
-    padding: 10,
-    backgroundColor: "aliceblue",
-    justifyContent: "center",
-  },
-  spot: {
-    padding: 15,
-    backgroundColor: "white",
-    width: 50,
-    height: 50,
-    margin: 1,
+    alignContent: "flex-start",
+    justifyContent: "space-between",
+    paddingTop: 15,
+    paddingBottom: 15,
   },
 });
 
