@@ -8,6 +8,7 @@ import Register from "../Screens/Auth/Register";
 import Settings from "../Screens/Settings/Settings";
 import ReservationScreen from "../Screens/Features/ReservationScreen";
 import FinalizationScreen from "../Screens/Features/FinalizationScreen";
+import CountdownScreen from "../Screens/Features/CountdownScreen";
 
 import { useSelector } from "react-redux";
 
@@ -17,6 +18,8 @@ import { Icon } from "@rneui/base";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
+import AddCars from "../Screens/Settings/AddCars";
+import PersonalInfo from "../Screens/Settings/PersonalInfo";
 
 function HomeNav() {
   return (
@@ -66,6 +69,9 @@ function NavigationHandler() {
             name="FinalizationScreen"
             component={FinalizationScreen}
           />
+          <Stack.Screen name="CountdownScreen" component={CountdownScreen} />
+          <Stack.Screen name="AddCars" component={AddCars} />
+          <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
         </>
       )}
     </Stack.Navigator>

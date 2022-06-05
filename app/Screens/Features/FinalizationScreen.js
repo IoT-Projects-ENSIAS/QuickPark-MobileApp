@@ -23,19 +23,26 @@ function FinalizationScreen({ route, navigation }) {
           <Card.Title>How many hours are you staying?</Card.Title>
           <Card.Divider />
           <View style={styles.hoursGroup}>
-            <Text>Hours:</Text>
+            <Text style={{ fontWeight: "bold" }}>Hours:</Text>
             <NumericInput
               minValue={0}
               onChange={(e) => setTotalPrice(total(e))}
               rounded={true}
             />
           </View>
+          <Text style={{ fontSize: 10, color: "grey" }}>
+            *The hourly rate is {parkingDetails.price} MAD
+          </Text>
           <Card.Divider />
-          <Text>Total: {totalPrice} MAD</Text>
+          <Text style={{ marginBottom: 20 }}>
+            <Text style={{ fontWeight: "bold" }}>Total: </Text>
+            {totalPrice} MAD
+          </Text>
           <Button
             title={"Proceed to payment"}
             icon={{ type: "font-awesome", name: "angle-right", color: "white" }}
             iconPosition={"right"}
+            onPress={() => navigation.navigate("CountdownScreen")}
           ></Button>
           <Button
             containerStyle={{ marginTop: 1 }}
