@@ -15,6 +15,10 @@ function Screen({ children, route, screenName }, ...otherProps) {
             text: screenName,
             style: { color: "white", padding: 5 },
           }}
+          containerStyle={{
+            padding: 20,
+            height: 150,
+          }}
         />
       )}
       <StatusBar />
