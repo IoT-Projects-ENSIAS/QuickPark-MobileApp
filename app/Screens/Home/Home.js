@@ -1,11 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Card, Icon, SearchBar, Slider } from "@rneui/base";
-import {
-  getAllParkings,
-  getRecentlyVisitedParkings,
-  reset,
-} from "../../features/Parkings/parkingsSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { Card, Icon, SearchBar, Badge } from "@rneui/base";
 
 import { ListItem, useTheme, Tab, TabView } from "@rneui/themed";
 import { ScrollView, StyleSheet } from "react-native";
@@ -13,9 +7,6 @@ import { ScrollView, StyleSheet } from "react-native";
 import * as Device from "expo-device";
 
 import Screen from "../../components/Layout/Screen";
-import { KeyboardAvoidingWrapper } from "../../components/KeyboardAvoidingWrapper/KeyboardAvoidingWrapper";
-
-import { NavigationContainer } from "@react-navigation/native";
 
 //TODO: delete once backend is setup
 //for testing
@@ -46,6 +37,9 @@ function Home({ navigation, route }) {
     innerBar: {
       backgroundColor: theme.colors.primary,
       color: "white",
+    },
+    listItem: {
+      padding: 1,
     },
   });
 
@@ -80,7 +74,7 @@ function Home({ navigation, route }) {
             {parkings.map((parking) => (
               <ListItem
                 key={parking.id}
-                style={{ padding: 1 }}
+                style={styles.listItem}
                 onPress={() =>
                   navigation.navigate("ParkingScreen", {
                     parkingDetails: parking,
@@ -89,8 +83,19 @@ function Home({ navigation, route }) {
                 }
               >
                 <ListItem.Content>
-                  <ListItem.Title>{parking.name}</ListItem.Title>
+                  <ListItem.Title>{parking.name} </ListItem.Title>
                 </ListItem.Content>
+                <Badge
+                  value={parking.available != 0 ? parking.available : "full"}
+                  status={
+                    parking.available > parking.capacity / 2
+                      ? "success"
+                      : parking.available === 0
+                      ? "error"
+                      : "warning"
+                  }
+                  containerStyle={styles.badge}
+                />
                 <ListItem.Chevron />
               </ListItem>
             ))}
