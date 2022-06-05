@@ -7,6 +7,7 @@ import ParkingScreen from "../Screens/Features/ParkingScreen";
 import Register from "../Screens/Auth/Register";
 import Settings from "../Screens/Settings/Settings";
 import ReservationScreen from "../Screens/Features/ReservationScreen";
+import FinalizationScreen from "../Screens/Features/FinalizationScreen";
 
 import { useSelector } from "react-redux";
 
@@ -60,6 +61,10 @@ function NavigationHandler() {
           <Stack.Screen
             name="ReservationScreen"
             component={ReservationScreen}
+          />
+          <Stack.Screen
+            name="FinalizationScreen"
+            component={FinalizationScreen}
           />
         </>
       )}

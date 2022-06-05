@@ -10,22 +10,9 @@ import {
 import { Card, Button } from "@rneui/base";
 import { NavigationContainer } from "@react-navigation/native";
 
-function ReservationScreen({ route, navigation }) {
+function FinalizationScreen({ route, navigation }) {
   const { parkingDetails } = route.params;
-  const [selected, setSelected] = useState(false);
-  let parkingGrid = [];
-  let reserved = [];
-  for (let index = 1; index <= parkingDetails.capacity; index++) {
-    parkingGrid.push(
-      <TouchableOpacity
-        key={index}
-        style={styles.spot}
-        onPress={() => setSelected(!selected)}
-      >
-        <Text>{index}</Text>
-      </TouchableOpacity>
-    );
-  }
+
   return (
     <Screen route={route.name} screenName={"Reserve your spot"}>
       <ScrollView>
@@ -34,10 +21,9 @@ function ReservationScreen({ route, navigation }) {
           <Card.Divider />
           <View style={styles.grid}>{parkingGrid}</View>
           <Button
-            title={"Next"}
+            title={"Proceed to payment"}
             icon={{ type: "font-awesome", name: "angle-right", color: "white" }}
             iconPosition={"right"}
-            onPress={() => navigation.navigate("FinalizationScreen")}
           ></Button>
           <Button
             containerStyle={{ marginTop: 1 }}
@@ -70,4 +56,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ReservationScreen;
+export default FinalizationScreen;

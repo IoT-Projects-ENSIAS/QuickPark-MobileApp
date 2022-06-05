@@ -44,7 +44,11 @@ function Home({ navigation, route }) {
   });
 
   return (
-    <Screen route={route.name} screenName={`Hello, ${user.firstName}`}>
+    <Screen
+      route={route.name}
+      screenName={`Hello, ${user.firstName}`}
+      goBack={() => console.log("hey")}
+    >
       <Tab
         value={index}
         onChange={(e) => setIndex(e)}
