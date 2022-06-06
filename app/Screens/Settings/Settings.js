@@ -7,37 +7,33 @@ import user from "../Home/Data.User";
 function Settings({ navigation, route }) {
   return (
     <Screen route={route.name} screenName={"Settings"}>
-      <ScrollView>
-        <ListItem
-          style={styles.listItem}
-          onPress={() => navigation.navigate("PersonalInfo")}
-        >
-          <ListItem.Content>
-            <ListItem.Title>Personal Information </ListItem.Title>
-          </ListItem.Content>
-          <ListItem.Chevron />
-        </ListItem>
-        <ListItem
-          style={styles.listItem}
-          onPress={() => navigation.navigate("AddCars")}
-        >
-          <ListItem.Content>
-            <ListItem.Title>Add cars</ListItem.Title>
-          </ListItem.Content>
-          <ListItem.Chevron />
-        </ListItem>
+      <View style={{ flex: 1 }}>
+        <View style={{ marginBottom: "auto" }}>
+          <ListItem
+            style={styles.listItem}
+            onPress={() => navigation.navigate("PersonalInfo")}
+          >
+            <ListItem.Content>
+              <ListItem.Title>Personal Information </ListItem.Title>
+            </ListItem.Content>
+            <ListItem.Chevron />
+          </ListItem>
+          <ListItem
+            style={styles.listItem}
+            onPress={() => navigation.navigate("AddCars")}
+          >
+            <ListItem.Content>
+              <ListItem.Title>Add cars</ListItem.Title>
+            </ListItem.Content>
+            <ListItem.Chevron />
+          </ListItem>
+        </View>
         <Button title="Log out" />
-      </ScrollView>
+      </View>
     </Screen>
   );
 }
 const styles = StyleSheet.create({
-  body: {
-    padding: 2,
-    flex: 1,
-    justifyContent: "center",
-  },
-
   searchBar: {
     padding: 15,
   },
